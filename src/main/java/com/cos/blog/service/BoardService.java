@@ -6,8 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
-import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import com.cos.blog.repisitory.BoardRepository;
 import com.cos.blog.repisitory.ReplyRepository;
@@ -21,7 +21,7 @@ public class BoardService {
 
 	@Autowired
 	private ReplyRepository replyRepository;
-
+	
 	@Transactional
 	public void 글쓰기(Board board, User user) { // title, content
 		board.setCount(0);
@@ -58,16 +58,7 @@ public class BoardService {
 	}
 
 	@Transactional
-	public void 댓글쓰기(User user, int boardId, Reply requestReply) {
-
-		Board board = boardRepository.findById(boardId).orElseThrow(() -> {
-			return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 아이디를 찾을 수 없습니다.");
-		});
-		
-		requestReply.setUser(user);
-		requestReply.setBoard(board);
-		
-		replyRepository.save(requestReply);
+	public void 댓글쓰기(ReplySaveRequestDto replySaveRequestDto) {
+		replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
 	}
-
 }
