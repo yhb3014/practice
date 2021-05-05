@@ -93,6 +93,20 @@ let index = {
 		}).fail(function(error) {
 			alert(JSON.stringify(error));
 		});
+	},
+	
+		replyDelete: function(boardId, replyId) {
+		$.ajax({
+			type: "Delete",
+			url: `/api/board/${boardId}/reply/${replyId}`,
+			dataType: "json"
+		}).done(function(resp) {
+			console.log("resp", resp)
+			alert("댓글삭제 성공.");
+			location.href = `/board/${boardId}`;
+		}).fail(function(error) {
+			alert(JSON.stringify(error));
+		});
 	}
 }
 
