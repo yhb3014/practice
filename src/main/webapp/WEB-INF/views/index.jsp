@@ -31,9 +31,15 @@
   <li class="page-item"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>
 	</c:otherwise>
 </c:choose>
-
 </ul>
-
+<div class="container">
+	<div class="m-2">
+  <form class="form-inline d-flex justify-content-end" action="/board/search">
+    <input type="text" name = "keyword" class="form-control mr-sm-2" placeholder="search">
+    <button class="btn btn-success m-1" type="submit">검색</button>
+  </form>
+	</div>
 </div>
+ </div>
 
 <%@ include file="layout/footer.jsp"%>
