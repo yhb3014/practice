@@ -29,11 +29,18 @@ public class BoardService {
 		board.setUser(user);
 		boardRepository.save(board);
 	}
-
+	
+//	@Transactional(readOnly = true)
+//	public Page<Board> 글목록(String keyword, Pageable pageable) {
+//		return boardRepository.findAll(pageable);
+//	}
+	
 	@Transactional(readOnly = true)
-	public Page<Board> 글목록(Pageable pageable) {
-		return boardRepository.findAll(pageable);
+	public Page<Board> 글목록(String keyword, Pageable pageable) {
+		return boardRepository.findByTitleContaining(keyword, pageable);
 	}
+	
+	
 
 	@Transactional(readOnly = true)
 	public Board 글상세보기(int id) {
