@@ -31,12 +31,22 @@ spring:
       "[hibernate.format_sql]": true
 
 
-      
-
 
   jackson:
     serialization:
       fail-on-empty-beans: false
-      
+  
+  
+  security:
+    oauth2:
+      client:
+        registration:
+          google: 
+            client-id: 94482621989-4jrirreivca1c7kgcbgvqae884cj8913.apps.googleusercontent.com
+            client-secret: 8Vom8ZbWqMJnUZWk6XOX_6Cr
+            scope:
+            - email
+            - profile
+                
 cos:
   key: ad4733

@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.cos.blog.config.auth.PrincipalDetailService;
+import com.cos.blog.config.oauth.PrincipalOauth2UserService;
 
 
 @Configuration // 빈 등록 : 스프링 컨테이너에서 객체를 관리할 수 있게 하는 것 (IoC 관리)
@@ -22,6 +23,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private PrincipalDetailService PrincipalDetailService;
+	
+	@Autowired
+	private PrincipalOauth2UserService principalOauth2UserService;
 	
 	@Bean
 	@Override
@@ -36,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	// 시큐리티가 대신 로그인해주는데 password를 가로채기를 하는데
 	// 해당 password가 뭘로 해쉬가 되어 회원가입이 되었는지 알아야
-	// 같은 해쉬로 암호화해서 DB에 있는 해쉬랑 비교할 수 있음.
+	// 같은 해쉬로 암호화해서 DB에 있는 해쉬랑 비교할 수 있음
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(PrincipalDetailService).passwordEncoder(encordPWD());
@@ -55,6 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.formLogin()
 				.loginPage("/auth/loginForm")
 				.loginProcessingUrl("/auth/loginProc") // 스프링 시큐리티가 해당 주소로 요청오는 로그인을 가로챈다.
-				.defaultSuccessUrl("/");
+				.defaultSuccessUrl("/")
+				.and()
+				.oauth2Login()
+				.loginPage("/loginForm") 
+				.userInfoEndpoint()
+				.userService(principalOauth2UserService);
 	}
 }

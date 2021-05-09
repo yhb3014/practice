@@ -2,9 +2,11 @@ package com.cos.blog.config.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.cos.blog.model.User;
 
@@ -16,11 +18,17 @@ import lombok.Getter;
 @SuppressWarnings("serial")
 @Data
 @Getter
-public class PrincipalDetail implements UserDetails{
+public class PrincipalDetail implements UserDetails, OAuth2User{
 	private User user; // 콤포지션
-
+	private Map<String, Object> attributes;
+	
 	public PrincipalDetail(User user) {
 		this.user=user;
+	}
+	
+	public PrincipalDetail(User user, Map<String, Object> attributes) {
+		this.user=user;
+		this.attributes=attributes;
 	}
 	
 	@Override
@@ -66,5 +74,14 @@ public class PrincipalDetail implements UserDetails{
 		
 		return collertors;
 	}
+	
+	@Override
+	public Map<String, Object> getAttributes() {
+		return attributes;
+	}
 
+	@Override
+	public String getName() {
+		return null;
+	}
 }

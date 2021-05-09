@@ -1,11 +1,12 @@
 package com.cos.blog.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,11 +40,21 @@ public class User {
 	
 	//DB는 RoleType이 없기때문에 import 해야함
 	//@ColumnDefault("'user'")
-	@Enumerated(EnumType.STRING)
-	private RoleType role; //Enum을 쓰는게 좋다. //ADMIN, USER
+	private String role; //Enum을 쓰는게 좋다. //ADMIN, USER
+	
+    public List<String> getRoleList(){
+        if(this.role.length() > 0){
+            return Arrays.asList(this.role.split(","));
+        }
+        return new ArrayList<>();
+    }
 	
 	private String oauth; // kakao 등의 로그인인지 확인 
 	
 	@CreationTimestamp // 시간이 자동으로 입력이 된다.
 	private Timestamp creatDate;
+	
+	private String provider;
+	private String providerId;
+	
 }

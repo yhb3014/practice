@@ -7,7 +7,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repisitory.UserRepository;
 
@@ -23,9 +22,8 @@ public class UserService {
 	
 	@Transactional(readOnly = true)
 	public User 회원찾기(String username) {
-		User user = userRepository.findByUsername(username).orElseGet(()->{
-			return new User();
-		});
+		User user = userRepository.findByUsername(username);
+	
 		return user;
 	}
 	
@@ -35,7 +33,6 @@ public class UserService {
 		String rawPassword = user.getPassword(); // 비밀번호 원문
 		String encPassword = encoder.encode(rawPassword); // 해쉬 값
 		user.setPassword(encPassword);
-		user.setRole(RoleType.User);
 		userRepository.save(user);
 	}
 	
