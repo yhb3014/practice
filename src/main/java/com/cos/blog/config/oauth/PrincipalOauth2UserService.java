@@ -1,5 +1,7 @@
 package com.cos.blog.config.oauth;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -9,7 +11,9 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.cos.blog.config.auth.PrincipalDetail;
+import com.cos.blog.config.oauth.provider.FacebookUserInfo;
 import com.cos.blog.config.oauth.provider.GoogleUserInfo;
+import com.cos.blog.config.oauth.provider.NaverUserInfo;
 import com.cos.blog.config.oauth.provider.OAuth2UserInfo;
 import com.cos.blog.model.User;
 import com.cos.blog.repisitory.UserRepository;
@@ -36,6 +40,12 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 		if(userRequest.getClientRegistration().getRegistrationId().equals("google")) {
 			System.out.println("구글 로그인 요청");
 			oAuth2UserInfo = new GoogleUserInfo(oauth2User.getAttributes());
+		}else if(userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
+			System.out.println("페이스북 로그인 요청");
+			oAuth2UserInfo = new FacebookUserInfo(oauth2User.getAttributes());
+		}else if(userRequest.getClientRegistration().getRegistrationId().equals("naver")) {
+			System.out.println("네이버 로그인 요청");
+			oAuth2UserInfo = new NaverUserInfo((Map)oauth2User.getAttributes().get("response"));
 		}else {
 			System.out.println("로그인을 이미 한적이 있습니다.");
 		}

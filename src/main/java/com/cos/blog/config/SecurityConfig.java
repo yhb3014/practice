@@ -20,7 +20,7 @@ import com.cos.blog.config.oauth.PrincipalOauth2UserService;
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 특정 주소로 접근을 하면 권한 및 인증을 미리 체크 하겠다는 뜻.
 // 3개가 시큐리티 한 세트.
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	private PrincipalDetailService PrincipalDetailService;
 	
