@@ -17,7 +17,7 @@
 <script>
 	$('.summernote').summernote({
 		tabsize : 2,
-		height : 300
+		height : 400
 	});
 </script>
 <script src="/js/board.js"></script>

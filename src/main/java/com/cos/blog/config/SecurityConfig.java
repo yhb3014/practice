@@ -17,7 +17,7 @@ import com.cos.blog.config.oauth.PrincipalOauth2UserService;
 
 @Configuration // 빈 등록 : 스프링 컨테이너에서 객체를 관리할 수 있게 하는 것 (IoC 관리)
 @EnableWebSecurity // 시큐리티 필터가 등록이 된다. (설정을 이 클래스에서 하겠다.)
-@EnableGlobalMethodSecurity(prePostEnabled = true) // 특정 주소로 접근을 하면 권한 및 인증을 미리 체크 하겠다는 뜻.
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true) // 특정 주소로 접근을 하면 권한 및 인증을 미리 체크 하겠다는 뜻.
 // 3개가 시큐리티 한 세트.
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

@@ -15,10 +15,10 @@ spring:
       
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    #url: jdbc:mysql://database-1.ci6saqbza9gi.ap-northeast-2.rds.amazonaws.com:3306/blog
-    url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
-    username: cos
-    password: ad4733
+    url: jdbc:mysql://database-1.ci6saqbza9gi.ap-northeast-2.rds.amazonaws.com:3306/blog
+    #url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
+    username: HB
+    password: fshad4733
     
   jpa:
     open-in-view: true
@@ -63,6 +63,7 @@ spring:
             scope:
             - name
             - email
+            - profile_image
             client-name: Naver
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8080/login/oauth2/code/naver

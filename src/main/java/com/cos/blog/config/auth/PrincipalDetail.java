@@ -11,14 +11,13 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import com.cos.blog.model.User;
 
 import lombok.Data;
-import lombok.Getter;
 
 // 스프링 시큐리티가 로그인 요청을 가로채서 로그인을 진행하고 완료가 되면 UserDetails 타입의 오브젝트(PrincipalDetail)를
 // 스프링 시큐리티의 고유한 세션저장소에 저장을 해준다.
-@SuppressWarnings("serial")
 @Data
-@Getter
 public class PrincipalDetail implements UserDetails, OAuth2User{
+	
+	private static final long serialVersionUID = 1L;
 	private User user; // 콤포지션
 	private Map<String, Object> attributes;
 	
@@ -69,7 +68,7 @@ public class PrincipalDetail implements UserDetails, OAuth2User{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
-		Collection<GrantedAuthority> collertors = new ArrayList<>();
+		Collection<GrantedAuthority> collertors = new ArrayList<GrantedAuthority>();
 		collertors.add(()->{ return "ROLE_"+user.getRole();});
 		
 		return collertors;
@@ -82,6 +81,6 @@ public class PrincipalDetail implements UserDetails, OAuth2User{
 
 	@Override
 	public String getName() {
-		return null;
+		return user.getId()+"";
 	}
 }

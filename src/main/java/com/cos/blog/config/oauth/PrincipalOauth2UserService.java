@@ -3,7 +3,6 @@ package com.cos.blog.config.oauth;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -22,10 +21,10 @@ import com.cos.blog.repisitory.UserRepository;
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 	
 	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	@Autowired
 	private UserRepository userRepository;
+	
+	//@Autowired
+	//private BCryptPasswordEncoder bCryptPasswordEncoder;	
 	
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -54,12 +53,12 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 		String provider = oAuth2UserInfo.getProvider();
 		String providerId = oAuth2UserInfo.getProviderId();
 		String username = provider+"_"+providerId;
-		String password = bCryptPasswordEncoder.encode("HB");
+		//String password = bCryptPasswordEncoder.encode("HB");
+		String password = "$2a$10$8P1nlCF6b4mhAy4SKGxvY.GPEl5T5KuKOEto0m4tP0JbWiCOb7R1S";
 		String email = oAuth2UserInfo.getEmail();
 		String role = "ROLE_USER";
 		
 		User userEntity = userRepository.findByUsername(username);
-		
 		if(userEntity == null) {
 			userEntity = User.builder()
 					.username(username)
@@ -69,6 +68,9 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 					.providerId(providerId)
 					.provider(provider)
 					.build();
+			userRepository.save(userEntity);
+		} else {
+			userEntity.setEmail(oAuth2UserInfo.getEmail());
 			userRepository.save(userEntity);
 		}
 		

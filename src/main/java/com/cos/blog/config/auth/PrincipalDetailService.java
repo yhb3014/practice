@@ -10,11 +10,11 @@ import com.cos.blog.model.User;
 import com.cos.blog.repisitory.UserRepository;
 
 @Service // Bean 등록
-public class PrincipalDetailService implements UserDetailsService{
-	
+public class PrincipalDetailService implements UserDetailsService {
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	// 스프링이 로그인 요청을 가로챌 때, username, password 변수 2개를 가로채는데
 	// password 부분 처리는 알아서 함.
 	// username이 DB에 있는지만 확인해주면 됨.
@@ -22,9 +22,10 @@ public class PrincipalDetailService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		System.out.println(username);
 		User userEntity = userRepository.findByUsername(username);
-		if(userEntity == null) {
+		if (userEntity == null) {
 			return null;
-	}
-		return new PrincipalDetail(userEntity);
+		} else {
+			return new PrincipalDetail(userEntity);
+		}
 	}
 }

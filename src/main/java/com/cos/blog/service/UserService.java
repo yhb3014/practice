@@ -29,11 +29,16 @@ public class UserService {
 	
 	
 	@Transactional
-	public void 회원가입(User user) {
+	public int 회원가입(User user) {
 		String rawPassword = user.getPassword(); // 비밀번호 원문
 		String encPassword = encoder.encode(rawPassword); // 해쉬 값
 		user.setPassword(encPassword);
-		userRepository.save(user);
+		try{
+			userRepository.save(user);
+			return 1;
+		}catch(Exception e) {
+			return -1;
+		}
 	}
 	
 	@Transactional

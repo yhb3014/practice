@@ -13,8 +13,6 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,7 +35,7 @@ public class User {
 	@Column(nullable = false, length = 100)
 	private String password;
 	
-	@Column(nullable = false, length = 50, unique=true)
+	@Column(nullable = false, length = 50)
 	private String email;
 	
 	//DB는 RoleType이 없기때문에 import 해야함

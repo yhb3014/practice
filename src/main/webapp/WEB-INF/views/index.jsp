@@ -41,6 +41,13 @@
 	</div>
 </div>
  </div>
+  <script>
+	$('#search__btn').on('click', function(){
+		var keyword = $('#keyword').val();
+		location.href='/?keyword='+keyword;
+		
+	});
+</script>
 <!--  
  <script>
 	$('#search__btn').on('click', function(){
@@ -65,12 +72,4 @@
 </script>
  -->
  
-  <script>
-	$('#search__btn').on('click', function(){
-		var keyword = $('#keyword').val();
-		location.href='/?keyword='+keyword;
-		
-	});
-</script>
-
 <%@ include file="layout/footer.jsp"%>

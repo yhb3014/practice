@@ -9,6 +9,6 @@ import com.cos.blog.model.Reply;
 public interface ReplyRepository extends JpaRepository<Reply, Integer> {
 	
 	@Modifying
-	@Query(value = "INSERT INTO reply(userId, boardId, content, createDate) VALUES(?1, ?2, ?3, now())", nativeQuery = true)
+	@Query(value = "INSERT INTO Reply(userId, boardId, content, createDate) VALUES(?1, ?2, ?3, now())", nativeQuery = true)
 	int mSave(int userId, int boardId, String content);
 }
