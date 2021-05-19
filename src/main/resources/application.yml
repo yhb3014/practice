@@ -66,7 +66,7 @@ spring:
             - profile_image
             client-name: Naver
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/naver
+            redirect-uri: http://52.78.66.28:8080//login/oauth2/code/naver
           
         provider:
           naver: 

@@ -79,5 +79,10 @@ public class BoardService {
 	public void 댓글삭제(int replyId) {
 		replyRepository.deleteById(replyId);
 	}
+	
+	@Transactional
+	public int 조회수(int id) {
+		return boardRepository.updateView(id);
+	}
 
 }
